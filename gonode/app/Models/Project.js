@@ -5,7 +5,7 @@ const Model = use('Model')
 
 class Project extends Model {
   user () {
-    return this.belongsTo('App/Models/Users')
+    return this.belongsTo('App/Models/User')
   }
 
   tasks () {
