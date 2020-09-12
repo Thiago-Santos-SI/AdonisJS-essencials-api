@@ -6,10 +6,27 @@
 
 const File = use('App/Models/File')
 const Helpers = use('Helpers')
+const Database = use('Database')
+
 /**
  * Resourceful controller for interacting with files
  */
 class FileController {
+
+  async index ({ params, response }) {
+    const users = await Database.from('files').where({ id: params.id }).file
+
+    return users
+
+  }
+
+  async show ({ params, response }) {
+    const file = await File.findByOrFail(params.id)
+
+    return await response.download(Helpers.tmpPath(`uploads/${file.file}`))
+  }
+
+
   async store ({ request, response }) {
     try {
       if (!request.file('file')) return
