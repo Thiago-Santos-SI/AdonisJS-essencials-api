@@ -27,6 +27,7 @@ class ForgotPasswordController {
         }
       )
 
+
     }catch (e){
       return response.status(e.status)
         .send({error: {message: 'Algo não deu certo, esse e-mail existe?'}})
@@ -46,7 +47,7 @@ class ForgotPasswordController {
       if (tokenExpired){
         return response
           .status(401)
-          .send({error:{message: "solicitação expirada"}})
+          .send({ error: { message: "solicitação expirada" } } )
       }
 
       user.token = null
@@ -57,7 +58,7 @@ class ForgotPasswordController {
 
     }catch (e) {
       return response.status(e.status)
-        .send({error: {message: 'Algo não deu errado ao resetar sua senha'}})
+        .send({error: {message: 'Algo deu não errado ao resetar sua senha'}})
     }
   }
 }
