@@ -16,12 +16,12 @@ class FileController {
   async index ({ params, response }) {
     const users = await Database.from('files').where({ id: params.id }).file
 
-    return users
+    return await response.download(Helpers.tmpPath(`uploads/${file.file}`))
 
   }
 
   async show ({ params, response }) {
-    const file = await File.findByOrFail(params.id)
+    const file = await File.findByOrFail('id', params.id)
 
     return await response.download(Helpers.tmpPath(`uploads/${file.file}`))
   }

@@ -5,6 +5,8 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
 const Project = use('App/Models/Project')
+const Database = use('Database')
+
 /**
  * Resourceful controller for interacting with projects
  */
@@ -26,10 +28,7 @@ class ProjectController {
   }
 
   async show ({ params }) {
-    const project = await Project.findByOrFail(params.id)
-
-    await project.load('user')
-    await project.load('tasks')
+    const project = await Project.findBy('id', params.id)
 
     return project
   }
@@ -50,6 +49,11 @@ class ProjectController {
     const project = await Project.findByOrFail(params.id)
 
     project.delete()
+  }
+
+  async deleteAll ({ }) {
+    await Database.from('projects').delete()
+
   }
 }
 
